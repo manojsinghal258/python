@@ -1,0 +1,45 @@
+# Author - Manoj Singhal
+# Find Excel column name from a given column number  OR Find String for a Given Number
+# Example A:1, B:2...Z:26 27= 26+1=AA 52=AZ
+
+import string
+dic={}
+
+#Generate Dictionary for Number : String mapping
+def generateDic():
+  alpha=list(string.ascii_lowercase)
+  for i in range(1,27):
+    dic[str(i)]=alpha[i-1]
+  #print (dic)
+
+# Convert Number into String
+def convert2Str(num):
+  if num<1:
+    return "Invalid Number"
+  generateDic()
+  #print (dic)
+  ss=""
+  cnt=1
+  while num:
+    #print("num is %r"%num)
+    remain=num%(26**cnt)
+    #print ("remain is %r"%remain)
+    if remain==0:
+      #print("special case")
+      ss =str(dic["26"]) + ss
+      num=num-1
+    else:
+      ss =str(dic[str(remain)]) + ss
+    num=int (num/(26**cnt))
+    cnt +=1
+
+  return (ss)
+
+#TestCase
+
+print (convert2Str(0))
+print (convert2Str(26))
+print (convert2Str(27))
+print (convert2Str(51))
+print (convert2Str(52))
+print (convert2Str(702))
