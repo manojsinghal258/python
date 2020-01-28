@@ -1,0 +1,66 @@
+# Median of Two Sorted Arrays #Incomplete
+# Example: There are two sorted arrays nums1 and nums2 of size m and n respectively. Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
+# You may assume nums1 and nums2 cannot be both empty.
+# Example 1:
+# nums1 = [1, 3] nums2 = [2]
+#-----------------------------
+def median(ls1,ls2):
+  if len(ls1) <=len(ls2):
+    X=ls1
+    Y=ls2
+  else:
+    X=ls2
+    Y=ls1
+  print (X, Y)
+  med = 0
+  partition=(len(X)+len(Y)+1)//2
+  left=0
+  right = len(X)-1
+  ptive_inf = float("inf") #for Positive infinity
+  ntive_inf = float("-inf") #for Negative infinity
+  
+  #If X largest element is smaller than Y smallest element
+  if X[-1] <= Y[0]:
+    if (len(X)+len(Y))%2:
+      medindx=(len(X)+len(Y)+1)//2
+      med=Y[medindx-len(X)-1]
+    else:
+      medindx=(len(X)+len(Y))//2
+      med=(Y[medindx-len(X)-1] + Y[medindx-len(X)])/2
+
+    return med
+
+  #If Y largest element is smaller than X smallest element
+  if Y[-1] <= X[0]:
+    if (len(X)+len(Y))%2:
+      medindx=(len(X)+len(Y)+1)//2
+      med=Y[medindx-1]
+    else:
+      medindx=(len(X)+len(Y))//2
+      med=(Y[medindx-1] + Y[medindx])/2
+    return med
+
+  while left<right:
+    #print ("in while")
+    X_indx = (left + right)//2
+    Y_indx = partition - X_indx
+    if X[X_indx-1] < Y[Y_indx] and Y[Y_indx-1] < X[X_indx]:
+      med= (max(X[X_indx-1],Y[Y_indx-1]) + min (X[X_indx],Y[Y_indx]))/2
+      #print ("if")
+      break
+    elif Y[Y_indx-1] >= X[X_indx]:
+      #left += X_indx +1
+      left = X_indx +1
+      #print ("elif1 left  %r right %r"%(left,right))
+    elif Y[Y_indx] <= X[X_indx-1]:
+      #right -= X_indx -1
+      right = X_indx -1
+      #print ("elif2")
+  return med
+
+
+
+list1=[1,2,3,5,7,8]
+#list1=[11,12,22]
+list2=[2,4,6,8,9,11]
+print ("median is %r "%median(list1,list2))
