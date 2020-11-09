@@ -1,0 +1,94 @@
+class tree():
+  def __init__(self, val=None, left=None, right=None):
+    self.val=val
+    self.left=left
+    self.right=right
+  
+  def __str__(self):
+    return f'{self.val}'
+
+  def add(self,new):
+    if not self.val:
+      self.val=new
+      print ("adding %r"%new)
+    else:      
+      Q1 = [self]
+      while Q1:
+        current = Q1.pop(0)
+        if current.left:
+          Q1.append(current.left)
+        else:
+          current.left = tree(new)
+          return
+        
+        if current.right:
+          Q1.append(current.right)
+        else:
+          current.right = tree(new)
+          return
+
+# outside the class          
+def traversetree (node=None):
+  if not node:
+    return None
+  else:
+    print(node.val)
+    traversetree(node.left)
+    traversetree(node.right)
+      
+def maxdepth(node = None):
+  if not node:
+    return 0
+  else:
+    return (max(maxdepth(node.left),maxdepth(node.right))+1)
+
+#This method is simple but its calling maxdepth() at each node to calculate the height of the tree, So total complexity is O(n^2)
+def Isbalance(node=None):
+  if not node:
+    return True
+  print (node.val)
+  return Isbalance(node.left) and Isbalance(node.right) and abs(maxdepth(node.left)-maxdepth(node.right))<=1
+
+
+
+#Lets try to improve it by not calling maxdepth at every node
+def Isbalance_helper(node=None):
+  if node is None:
+    return 0
+
+  lh = Isbalance_helper(node.left)
+  if lh == -1:
+    return -1
+  
+  rh = Isbalance_helper(node.right)
+  if rh == -1:
+    return -1
+  
+  if abs(lh-rh)>1:
+    return -1
+  return (max(Isbalance_helper(node.left),Isbalance_helper(node.right))+1)
+  
+def Isbalance_improve(node=None):
+  if Isbalance_helper(node)==-1:
+    return False
+  return True
+
+  
+
+tt = tree(1)
+tt.add(2)
+tt.add(3)
+tt.add(4)
+tt.add(5)
+print (tt)
+print (tt.left, tt.right)
+print (tt.left.left,tt.left.right, tt.right.left,tt.right.right)
+
+
+traversetree(tt)
+print ("Tree height is %r"%maxdepth(tt))
+
+#print ("Tree is Balanced: ", Isbalance(tt))
+
+print ("Tree is Balanced: ", Isbalance_improve(tt))
+
