@@ -1,0 +1,62 @@
+# Author - Manoj Singhal
+# This method Does not need extra space and replace element in the same array
+
+#Algo - Replace Element InPlace
+"""
+Input: ar1[] = {1, 5, 9, 10, 15, 20};
+       ar2[] = {2, 3, 8, 13};
+
+Output: ar1[] = {1, 2, 3, 5, 8, 9}
+        ar2[] = {10, 13, 15, 20} 
+
+Algo: 
+1. Pick one element (last) from the 2nd array and insert into 1st array
+2. Move last element of 1st array into the 2nd array to create space
+
+"""
+
+
+def mergeSortedArr(ar1,ar2):
+  #Check for empty array
+  if len(ar1)==0 or len(ar2)==0:
+    return ar1 or ar2
+
+  #Check if one array is less than another array
+  if ar1[0]>ar2[-1] or ar1[-1]<ar2[0]:
+    return ar1,ar2
+
+  #Insert elements of one array to another
+  m=len(ar1)
+  n=len(ar2)
+
+  #Pick one element from the 2nd array
+  for j in range(n-1,-1,-1):
+    i=m-1
+    last=ar1[-1]
+    #Shift element in 1st array 
+    while (ar2[j]<ar1[i] and i>=0):
+      ar1[i]=ar1[i-1]
+      i -=1
+  
+    # Insert jth element from 2nd array to the 1st array at the right position, 
+    # and last element from 1st array to the 2nd array at  jth position
+      
+    ar1[i+1]=ar2[j]
+    ar2[j]=last
+  
+  return ar1,ar2
+      
+#Test1
+ar1 = [1, 5, 9, 10, 15, 20]
+ar2 = [2, 3, 8, 13]
+
+#Test2
+#ar1=[2,3]
+#ar2=[10]
+
+
+#Test3
+ar1=[]
+ar2=[12]
+
+print(mergeSortedArr(ar1,ar2))
