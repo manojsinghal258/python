@@ -1,0 +1,29 @@
+# Author - Manoj Singhal
+# This method need No extra space for storing the final array as this Pops up from the existing array and append to the new one
+
+"""
+Input: ar1[] = {1, 5, 9, 10, 15, 20};
+       ar2[] = {2, 3, 8, 13};
+Output: [1, 2, 3, 5, 8, 9, 10, 13, 15, 20]
+
+"""
+def mergeSortedArr(ar1,ar2):
+  ar3=[]
+  if len(ar1)==0 or len(ar2)==0:
+    return ar1 or ar2
+
+  while len(ar1)>0 and len(ar2)>0:
+    if(ar1[0] <= ar2[0]):
+      ar3.append(ar1.pop(0))
+    else:
+      ar3.append(ar2.pop(0))
+  if len(ar1)==0:
+    ar3.extend(ar2)
+  elif len(ar2)==0:
+    ar3.extend(ar1)
+  return ar3
+
+ar1 = [1, 5, 9, 10, 15, 20] #[10]
+ar2 = [2, 3, 8, 13]#[2, 3]
+
+print(mergeSortedArr(ar1,ar2))
