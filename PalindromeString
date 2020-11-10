@@ -1,0 +1,23 @@
+
+# Author - Manoj Singhal
+
+def Ispalindrome(mystr):
+  if len(mystr)==0:
+    print("Empty String")
+    return 
+  i=0
+  j=len(mystr)-1
+  mystr = mystr.lower()
+  while (i<j):
+    if mystr[i] != mystr[j]:
+      return False
+    i +=1
+    j -=1
+  return True
+
+#TestCases
+mystr=""
+mystr="a"
+mystr="\u00B2"  #u"\u00B2"
+mystr="$abca$"
+Ispalindrome(mystr)
