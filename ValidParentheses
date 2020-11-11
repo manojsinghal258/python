@@ -1,0 +1,26 @@
+
+# Author - Manoj Singhal
+#Solution-1, OR better use a dictionary and keep the mapping there dic={"(":")","{":"}","[":"]"}
+
+def isValid(s):
+    mystack=[]
+    for c in s:
+        if c=="(" or c=="{" or c=="[":
+            mystack.append(c)
+        elif c==")" and len(mystack) !=0 and mystack[-1]=="(":
+            mystack.pop()
+        elif c=="}"  and len(mystack) !=0 and mystack[-1]=="{":
+            mystack.pop()
+        elif c=="]" and len(mystack) !=0 and mystack[-1]=="[" :
+            mystack.pop()
+        else:
+            return False
+    if len(mystack) !=0:
+        return False
+    return True
+  
+#Solution-2
+def isValid(self, s):
+  while "()" in s or "{}" in s or '[]' in s:
+    s = s.replace("()", "").replace('{}', "").replace('[]', "")
+  return s == ''
