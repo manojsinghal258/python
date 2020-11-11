@@ -1,0 +1,44 @@
+# Author - Manoj Singhal
+
+class node():
+  def __init__(self,val=None,left=None,right=None):
+    self.val=val
+    self.left=left
+    self.right=right
+  def __str__(self):
+    return f'{self.val}'
+
+def printTree(treenode):
+  if not treenode:
+    return None
+  else:
+    printTree(treenode.left)
+    print(treenode.val)
+    printTree(treenode.right)
+
+
+def adding2tree(ar):
+  print ("ar is", ar)
+  indx=(len(ar)-1)//2 
+  if indx<0:
+    return
+  print("index is ", indx)
+  root=node(ar[indx])  #Here you need to create a new node (using node object) 
+
+  root.left= adding2tree(ar[:indx])     #Call the same function recursively for the left sub tree
+  root.right= adding2tree(ar[indx+1:]) #Call the same function recursively for the right sub tree
+  return root
+
+
+
+ar=[1,2,3,4,5,6,7]
+
+tree_root= adding2tree(ar)
+print("Your Tree is")
+printTree(tree_root)
+
+print("------")
+print(tree_root)
+print(tree_root.left,tree_root.right)
+print(tree_root.left.left,tree_root.left.right)
+print(tree_root.left.left.left,tree_root.left.left.right)
